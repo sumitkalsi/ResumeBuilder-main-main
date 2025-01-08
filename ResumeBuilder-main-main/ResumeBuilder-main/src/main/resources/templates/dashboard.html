@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::head}"></head>
+  <link rel="stylesheet" th:href="@{/Styles/dashboard.css?version=51}">
+<body>
+  <nav th:replace="~{fragments::nav}"></nav>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>User Dashboard</h1>
+      
+        </div>
+
+        <div class="resume-options">
+            <h2>Choose Resume Template</h2>
+         
+         <a th:object="${user}" th:href="@{/resume/templateSelection/{id}(id=${user.id})}">  
+            <div class="card" >
+        <div class="plus-icon">+</div>
+           <h3>Create new resume</h3>
+      </div>
+        </a> 
+
+        <div class="existing-resumes">
+            <h2>Your Existing Resumes</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>Resume 1</h3>
+                   
+                  
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <script src ="/Scripts/dashboard.js">
+    
+    </script>
+</body>
+</html>

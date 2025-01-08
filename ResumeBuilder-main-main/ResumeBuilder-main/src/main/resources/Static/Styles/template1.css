@@ -1,0 +1,37 @@
+  .container {
+            font-family: Arial, sans-serif;
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        ul li strong {
+            flex: 1;
+        }
+        ul li span {
+            flex: 2;
+            text-align: left;
+        }

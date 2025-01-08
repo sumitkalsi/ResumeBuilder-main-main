@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::head}"></head>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .form-section, .preview-section {
+      flex: 1;
+      padding: 20px;
+      margin: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+      max-width: 45%;
+    }
+
+    .preview-section {
+      max-width: 45%;
+      overflow: auto;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .preview {
+      padding: 10px;
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.5;
+    }
+  </style>
+
+<body>
+  <div class="container">
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Resume Form</h2>
+      <form id="resumeForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+
+        <label for="summary">Professional Summary</label>
+        <textarea id="summary" name="summary" rows="4" placeholder="Write a short summary about yourself"></textarea>
+
+        <label for="skills">Skills</label>
+        <textarea id="skills" name="skills" rows="4" placeholder="List your skills"></textarea>
+
+        <label for="experience">Work Experience</label>
+        <textarea id="experience" name="experience" rows="4" placeholder="Describe your work experience"></textarea>
+
+        <label for="education">Education</label>
+        <textarea id="education" name="education" rows="4" placeholder="List your educational qualifications"></textarea>
+
+        <button type="button" onclick="updatePreview()">Preview Resume</button>
+      </form>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="preview-section">
+      <h2>Resume Preview</h2>
+      <div id="resumePreview" class="preview">
+        <p>Fill out the form to see your resume preview here.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updatePreview() {
+      const form = document.getElementById('resumeForm');
+      const preview = document.getElementById('resumePreview');
+
+      const name = form.name.value;
+      const email = form.email.value;
+      const phone = form.phone.value;
+      const summary = form.summary.value;
+      const skills = form.skills.value;
+      const experience = form.experience.value;
+      const education = form.education.value;
+
+      preview.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <h4>Professional Summary</h4>
+        <p>${summary}</p>
+        <h4>Skills</h4>
+        <p>${skills}</p>
+        <h4>Work Experience</h4>
+        <p>${experience}</p>
+        <h4>Education</h4>
+        <p>${education}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
