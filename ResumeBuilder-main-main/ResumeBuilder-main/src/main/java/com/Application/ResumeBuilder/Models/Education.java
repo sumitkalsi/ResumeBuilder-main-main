@@ -2,6 +2,8 @@ package com.Application.ResumeBuilder.Models;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,19 +21,29 @@ public class Education {
 	@ManyToOne
 	private ResumeInformation resume;
 	
-	private String instituteName;
+	private String instituteName =" ";
 	
-    private String location;
+    private String location =" ";
     
-    private String degreeType;
+    private String degreeType =" ";
     
-    private String FieldOfStudy;
-    
-    private Date  startDate ;
-    
+    private String FieldOfStudy =" ";
+    @Value("${default.startDate:2000-01-01}")
+    private Date  startDate  ;
+    @Value("${default.endDate:2000-01-01}")
     private Date endDate;
     
-    private String Score;
+    private String Score =" ";
+    
+    
+
+	public ResumeInformation getResume() {
+		return resume;
+	}
+
+	public void setResume(ResumeInformation resume) {
+		this.resume = resume;
+	}
 
 	public Long getId() {
 		return id;
@@ -97,18 +109,7 @@ public class Education {
 		Score = score;
 	}
 
-	public Education(Long id, String instituteName, String location, String degreeType, String fieldOfStudy,
-			Date startDate, Date endDate, String score) {
-		super();
-		this.id = id;
-		this.instituteName = instituteName;
-		this.location = location;
-		this.degreeType = degreeType;
-		FieldOfStudy = fieldOfStudy;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		Score = score;
-	}
+	
 
 	public Education() {
 		super();

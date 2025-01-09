@@ -1,17 +1,24 @@
 package com.Application.ResumeBuilder.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Application.ResumeBuilder.Models.ResumeInformation;
+import com.Application.ResumeBuilder.Models.Skills;
 import com.Application.ResumeBuilder.Models.Template;
 import com.Application.ResumeBuilder.Models.User;
+import com.Application.ResumeBuilder.Repositories.ResumeInformationRepository;
 import com.Application.ResumeBuilder.Services.ResumeService;
 import com.Application.ResumeBuilder.Services.UserService;
 
@@ -32,23 +39,44 @@ public class ResumeController {
 	@GetMapping("/templateSelection/{id}")
 	public String templateSelection(@PathVariable Long id , Model model) {
 	userId=id;
-	System.out.println(userId);
 	
+	User user =userService.getUserById(id).orElse(null);
 	
 	model.addAttribute("user", userService.getUserById(id).orElse(null) );
 	
-	ResumeInformation resume = new ResumeInformation();
+    ResumeInformation resume = new ResumeInformation();
+    resume.setUser(user);
 	
 	
-		userService.addResume(id, resume);
+		resumeService.saveResumeInformation(resume);
 		return "templateSelection";
 		
 	}
+	
+
+	
 	@GetMapping("/resumeBuilder/{template}/{id}")
-	public String resumeBuilder(@PathVariable String template,@PathVariable Long id ) {
-		System.out.println(template);
-		System.out.println(id);
+	public String resumeBuilder(@PathVariable String template,@PathVariable Long id ,Model model) {
+		
+		List<ResumeInformation>  list = resumeService.getResumeByUserId(id);
+		ResumeInformation resume = list.getLast();
+		Template temp = new Template();
+    	temp.setResume(resume);
+    	temp.setTemplatePath(template);
+    	Skills skills = new Skills();
+    	skills.setResume(resume);
+    	
+    	resume.setSkills(skills);
+		resume.setTemplate(temp);
+	       if(!list.contains(resume)){
+		resumeService.updateResumeInformation(resume.getId(), resume);
+	       }
+		model.addAttribute("resume", resume );
+		System.out.println(resume.toString());
+        model.addAttribute("template", resume.getTemplate() );
 		return "resumeBuilder";
+	       
+	       
 	}
 	
 	

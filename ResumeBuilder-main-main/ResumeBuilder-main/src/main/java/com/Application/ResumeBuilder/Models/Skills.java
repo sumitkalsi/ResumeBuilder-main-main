@@ -1,11 +1,13 @@
 package com.Application.ResumeBuilder.Models;
 
-import java.util.List;
+
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -19,11 +21,14 @@ private ResumeInformation resume;
 
 
 
-private List<String> languages;
+private String languages = " " ;
 
-private List<String> libraries_frameworks;
 
-private List<String> tools;
+
+private String libraries_frameworks = " " ;
+
+
+private String tools  =" ";
 
 
 
@@ -41,17 +46,18 @@ private List<String> tools;
 
 
 
-public Skills() {
-	super();
-
+public ResumeInformation getResume() {
+	return resume;
 }
 
-public Skills(Long id, List<String> languages, List<String> libraries_frameworks, List<String> tools) {
+public void setResume(ResumeInformation resume) {
+	this.resume = resume;
+}
+
+public Skills() {
 	super();
-	this.id = id;
-	this.languages = languages;
-	this.libraries_frameworks = libraries_frameworks;
-	this.tools = tools;
+	
+
 }
 
 public Long getId() {
@@ -62,27 +68,38 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-public List<String> getLanguages() {
+public String getLanguages() {
 	return languages;
 }
 
-public void setLanguages(List<String> languages) {
+public void setLanguages(String languages) {
 	this.languages = languages;
 }
 
-public List<String> getLibraries_frameworks() {
+public String getLibraries_frameworks() {
 	return libraries_frameworks;
 }
 
-public void setLibraries_frameworks(List<String> libraries_frameworks) {
+public void setLibraries_frameworks(String libraries_frameworks) {
 	this.libraries_frameworks = libraries_frameworks;
 }
 
-public List<String> getTools() {
+public String getTools() {
 	return tools;
 }
 
-public void setTools(List<String> tools) {
+public void setTools(String tools) {
 	this.tools = tools;
 }
+
+public Skills(Long id, ResumeInformation resume, String languages, String libraries_frameworks, String tools) {
+	super();
+	this.id = id;
+	this.resume = resume;
+	this.languages = languages;
+	this.libraries_frameworks = libraries_frameworks;
+	this.tools = tools;
+}
+
+
 }

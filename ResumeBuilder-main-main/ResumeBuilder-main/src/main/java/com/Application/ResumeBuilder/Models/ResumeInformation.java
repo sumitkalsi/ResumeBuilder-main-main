@@ -15,6 +15,9 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class ResumeInformation {
 
+	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id ;
@@ -31,13 +34,13 @@ public class ResumeInformation {
 	
 
 
-	private String name;
+	private String name =" ";
 	
-	private String email;
+	private String email =" ";
 	
-	private String contactNumber;
+	private String contactNumber =" ";
 	
-	private String address;
+	private String address =" ";
 	
 	
 	@OneToMany(mappedBy = "resume" ,cascade=CascadeType.ALL )
@@ -178,6 +181,13 @@ public class ResumeInformation {
 		this.links = links;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "ResumeInformation [id=" + id + ", user=" + user + ", template=" + template + ", name=" + name
+				+ ", email=" + email + ", contactNumber=" + contactNumber + ", address=" + address + ", links=" + links
+				+ ", education=" + education + ", workExperience=" + workExperience + ", skills=" + skills + "]";
+	}
 
 	
 }

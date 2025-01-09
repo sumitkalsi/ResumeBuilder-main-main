@@ -18,7 +18,19 @@ public class Template {
 	private ResumeInformation resume;
 	
 	
-	private String templatePath;
+	private String templatePath = "template1";
+	
+	public ResumeInformation getResume() {
+		return resume;
+	}
+
+
+	public void setResume(ResumeInformation resume) {
+		this.resume = resume;
+	}
+
+
+	
 
 
 	public Template() {
@@ -27,9 +39,9 @@ public class Template {
 	}
 
 
-	public Template(Long id, String templatePath) {
+	public Template( String templatePath) {
 		super();
-		this.id = id;
+		
 		
 		this.templatePath = templatePath;
 	}
@@ -55,5 +67,8 @@ public class Template {
 	public void setTemplatePath(String templatePath) {
 		this.templatePath = templatePath;
 	}
+
+
+	
 	
 }

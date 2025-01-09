@@ -13,10 +13,12 @@ public class Link {
 	@GeneratedValue(strategy  = GenerationType.AUTO)
 	private Long id ;
 	
-	private String link;
-	private String url;
+	private String link =" ";
+	private String url =" ";
 	@ManyToOne
 	private ResumeInformation resume;
+	
+	
 	public String getLink() {
 		return link;
 	}

@@ -23,12 +23,12 @@ public class ApiController {
 
 	@PostMapping(value="/resume/api" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
 	public ResponseEntity<String> api(@RequestBody MultipartFile file) {
-		  String targetUrl = "https://rest-mu.rchilli.com/RChilliParser/Rchilli/parseResumeBinary";
+		  String targetUrl = "http://192.168.1.101:8080/RChilliParser9/Rchilli/parseResumeBinary";
 		  
 		   try {
 				json.setFiledata(f.toBase64(file));
 				json.setFilename(file.getName());
-				System.out.println(json.getFiledata());
+				
 				 
 					ResponseEntity<String> response = restTemplate.postForEntity(targetUrl,json, String.class);
 			        return ResponseEntity.ok(response.getBody());

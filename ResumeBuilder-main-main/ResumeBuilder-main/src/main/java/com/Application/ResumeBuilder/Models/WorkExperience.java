@@ -2,6 +2,9 @@ package com.Application.ResumeBuilder.Models;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,19 +20,28 @@ public class WorkExperience {
 	private Long id;
 	
 	@ManyToOne
-	private ResumeInformation resume;
+	private ResumeInformation resume ;
 	
-	private String companyName;
+	private String companyName =" ";
 	
-	private String jobTitle;
+	private String jobTitle =" ";
 	
-	private String Location;
+	private String Location =" ";
 	
-	private Date startDate; 
-	
+	 @Value("${default.startDate:2000-01-01}")
+	private Date startDate ; 
+	 @Value("${default.endDate:2000-01-01}")
 	private Date endDate;
 	
-	private String description;
+	private String description =" ";
+
+	public ResumeInformation getResume() {
+		return resume;
+	}
+
+	public void setResume(ResumeInformation resume) {
+		this.resume = resume;
+	}
 
 	public WorkExperience() {
 		super();

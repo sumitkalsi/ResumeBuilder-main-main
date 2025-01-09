@@ -1,24 +1,39 @@
 package com.Application.ResumeBuilder.Services;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Application.ResumeBuilder.Models.Education;
+import com.Application.ResumeBuilder.Models.Link;
 import com.Application.ResumeBuilder.Models.ResumeInformation;
+import com.Application.ResumeBuilder.Models.Template;
+import com.Application.ResumeBuilder.Models.WorkExperience;
 import com.Application.ResumeBuilder.Repositories.ResumeInformationRepository;
 
 @Service
 public class ResumeService {
 
+      Long resumeId;
+	
 	private final ResumeInformationRepository resumeRepo;
 	
 	public ResumeService(ResumeInformationRepository resumeRepo) {
 		this.resumeRepo=resumeRepo;
 	}
 	
+	
+	
 	  // Create or update ResumeInformation
     public ResumeInformation saveResumeInformation(ResumeInformation resumeInformation) {
+    	
+    	
+    
         return resumeRepo.save(resumeInformation);
     }
 
@@ -28,8 +43,10 @@ public class ResumeService {
     }
 
     // Get a resume by ID
-    public Optional<ResumeInformation> getResumeById(Long id) {
-        return resumeRepo.findById(id);
+    public List<ResumeInformation> getResumeByUserId(Long id) {
+    	List<ResumeInformation>  list = (List<ResumeInformation>) resumeRepo.findByUserId(id).orElse(null);
+    	
+        return list;
     }
 
     // Delete a resume by ID
@@ -58,7 +75,7 @@ public class ResumeService {
             // Save updated entity
             return resumeRepo.save(existingResume);
         } else {
-            throw new RuntimeException("Resume with ID " + id + " not found");
+           return null;
         }
     }
 	
