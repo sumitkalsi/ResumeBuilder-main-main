@@ -1,14 +1,18 @@
 package com.Application.ResumeBuilder.Controllers;
 
 
+import java.net.URI;
+import java.net.http.HttpClient.Redirect;
+import java.net.http.HttpHeaders;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,11 +76,23 @@ public class ResumeController {
 		resumeService.updateResumeInformation(resume.getId(), resume);
 	       }
 		model.addAttribute("resume", resume );
-		System.out.println(resume.toString());
+	
         model.addAttribute("template", resume.getTemplate() );
 		return "resumeBuilder";
 	       
 	       
+	}
+	@PostMapping("/resumeBuilder/{template}/{id}")
+	public ResponseEntity<ResumeInformation> saveResume(  @PathVariable Long id ,@ModelAttribute ResumeInformation resume ){
+	     // Define the redirection URL
+        String redirectUrl = "/user/dashboard";
+         resume.setUser(userService.getUserById(id).orElse(null));
+        // Set the Location header
+        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.setLocation(URI.create(redirectUrl));
+		resumeService.updateResumeInformation(resume.getId(), resume);
+		return new ResponseEntity<>(headers,HttpStatus.OK);
+		
 	}
 	
 	

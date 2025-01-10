@@ -6,7 +6,10 @@
 
     .container {
       display: flex;
+      overflow-y: auto;
       width:100%;
+      height: 100vh;
+    
       flex-wrap: wrap;
       padding: 20px;
     }
@@ -22,12 +25,21 @@
     }
 
     .form-section {
-      max-width: 45%;
+      
+      height: 100vh; /* Set the height to 100% of the viewport */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding in height calculation */
+  background-color: #f9f9f9;
+      max-width: 30%;
     }
 
     .preview-section {
-      max-width: 45%;
-      overflow: auto;
+      max-width: 70%;
+      height: 100vh; /* Set the height to 100% of the viewport */
+      overflow-y: auto; /* Enable vertical scrolling */
+      padding: 20px; /* Add padding for spacing */
+      box-sizing: border-box;
     }
 
     h2 {
@@ -70,3 +82,9 @@
       color: #333;
       line-height: 1.5;
     }
+      .export{
+        display:flex;
+        justify-content:space-between;
+     padding: 10px ;
+     
+        }

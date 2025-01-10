@@ -19,78 +19,136 @@
     <!--=================================================================================  -->
     
     
-      <div class="template" th:object="${resume}"  th:fragment="template1">
-        <header>
-            <h1 id="name"   th:text="${resume.name}">[Your Name]</h1>
-            
-            <p>Email: <span id="email"  th:text="${resume.email}">[Your Email]</span> | Contact No.: <span id="contact"  th:text="${resume.contactNumber}">[Your Contact Number]</span></p>
-            <p>Address: <span id="address"  th:text="${resume.address}">[Your Address]</span></p>
-            <p>Links:
-                 <ul id="links" th:each="link : ${resume.links}">
-                    <li><span th:text="${link.link}"></span> : <span th:text="${link.url}" ></span> </li>
+      <div class="template"  th:fragment="template1">
+       
+      
+            <header>
+                <h1 id="Pname" >[Your Name]</h1>
+                
+                <p>Email: <span id="Pemail"  >[Your Email]</span> | Contact No.: <span id="contact" >[Your Contact Number]</span></p>
+                <p>Address: <span id="Paddress" >[Your Address]</span></p>
+                <p>Links:
+                     <ul  >
+                        <li><span  id="Plink"></span> : <span id="Purl" ></span> </li>
+                    </ul>
+                </p>
+                
+            </header>
+    
+            <section id="education" class="section">
+                <h2>Education</h2>
+                <ul  >
+                    
+                    <li>
+                        <strong>Institute Name:</strong> <span id="Pinstitute" >[Institute Name]</span>
+                    </li>
+                    <li>
+                        <strong>Location:</strong> <span id="Plocation" >[Location]</span>
+                    </li>
+                    <li>
+                        <strong>Degree Type:</strong> <span  id="PdegreeType">[Degree Type]</span>
+                    </li>
+                    <li>
+                        <strong>Field of Study:</strong> <span  id="PfieldOfStudy">[Field of Study]</span>
+                    </li>
+                    <li>
+                        <strong>Start Date:</strong> <span  id="PstartDate">[Start Date]</span>
+                    </li>
+                    <li>
+                        <strong>End Date:</strong> <span id="PendDate" >[End Date]</span>
+                    </li>
+                    <li>
+                        <strong>Score:</strong> <span  id="Pscore">[Score]</span>
+                    </li>
                 </ul>
-            </p>
-        </header>
+            </section>
+    
+            <section id="work-experience" class="section">
+                <h2>Work Experience</h2>
+                <ul >
+                    
+                    <li>
+                        <strong>Company Name:</strong> <span id="PcompanyName" >[Company Name]</span>
+                    </li>
+                    <li>
+                        <strong>Job Title:</strong> <span id="PjobTitle" >[Job Title]</span>
+                    </li>
+                    <li>
+                        <strong>Location:</strong> <span id="Clocation" >[Location]</span>
+                    </li>
+                    <li>
+                        <strong>Start Date:</strong> <span id="CstartDate" >[Start Date]</span>
+                    </li>
+                    <li>
+                        <strong>End Date:</strong> <span  id="CendDate">[End Date]</span>
+                    </li>
+                    <li>
+                        <strong>Description:</strong> <span id="Pdescription" >[Job Description]</span>
+                    </li>
+                </ul>
+            </section>
+    
+            <section id="skills" class="section">
+                <h2>Skills</h2>
+                <ul >
+                  <li  ><strong>Languages:</strong> <span id="Planguages" >[Languages]</span></li>
+                    <li  ><strong>Libraries/Frameworks:</strong> <span id="Plib" >[Libraries/Frameworks]</span></li>
+                    <li   ><strong>Tools:</strong> <span  id="Ptools" >[Tools]</span></li>
+                </ul>
+            </section>
+       </div>
+       
+          <!--=================================================================================  -->
+    
+    
+    
+    <div class="template alternative-template" th:fragment="template2">
+  <header>
+    <h1 id="Pname">[Your Name]</h1>
+    <p>
+      <span>Email: <span id="Pemail">[Your Email]</span></span> | 
+      <span>Contact No.: <span id="contact">[Your Contact Number]</span></span>
+    </p>
+    <p>Address: <span id="Paddress">[Your Address]</span></p>
+    <p>Links:</p>
+    <ul>
+      <li><span id="Plink"></span>: <span id="Purl"></span></li>
+    </ul>
+  </header>
 
-        <section id="education" class="section">
-            <h2>Education</h2>
-            <ul  th:each="education : ${resume.education}">
-                
-                <li>
-                    <strong>Institute Name:</strong> <span  th:text="${education.instituteName}">[Institute Name]</span>
-                </li>
-                <li>
-                    <strong>Location:</strong> <span  th:text="${education.location}">[Location]</span>
-                </li>
-                <li>
-                    <strong>Degree Type:</strong> <span  th:text="${education.degreeType}">[Degree Type]</span>
-                </li>
-                <li>
-                    <strong>Field of Study:</strong> <span  th:text="${education.FieldOfStudy}">[Field of Study]</span>
-                </li>
-                <li>
-                    <strong>Start Date:</strong> <span  th:text="${education.startDate}">[Start Date]</span>
-                </li>
-                <li>
-                    <strong>End Date:</strong> <span  th:text="${education.endDate}">[End Date]</span>
-                </li>
-                <li>
-                    <strong>Score:</strong> <span  th:text="${education.Score}">[Score]</span>
-                </li>
-            </ul>
-        </section>
+  <section id="education" class="section">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>Institute Name:</strong> <span id="Pinstitute">[Institute Name]</span></li>
+      <li><strong>Location:</strong> <span id="Plocation">[Location]</span></li>
+      <li><strong>Degree Type:</strong> <span id="PdegreeType">[Degree Type]</span></li>
+      <li><strong>Field of Study:</strong> <span id="PfieldOfStudy">[Field of Study]</span></li>
+      <li><strong>Start Date:</strong> <span id="PstartDate">[Start Date]</span></li>
+      <li><strong>End Date:</strong> <span id="PendDate">[End Date]</span></li>
+      <li><strong>Score:</strong> <span id="Pscore">[Score]</span></li>
+    </ul>
+  </section>
 
-        <section id="work-experience" class="section">
-            <h2>Work Experience</h2>
-            <ul th:each="work : ${resume.workExperience}">
-                
-                <li>
-                    <strong>Company Name:</strong> <span  th:text="${work.companyName}">[Company Name]</span>
-                </li>
-                <li>
-                    <strong>Job Title:</strong> <span  th:text="${work.jobTitle}">[Job Title]</span>
-                </li>
-                <li>
-                    <strong>Location:</strong> <span  th:text="${work.Location}">[Location]</span>
-                </li>
-                <li>
-                    <strong>Start Date:</strong> <span  th:text="${work.startDate}">[Start Date]</span>
-                </li>
-                <li>
-                    <strong>End Date:</strong> <span  th:text="${work.endDate}">[End Date]</span>
-                </li>
-                <li>
-                    <strong>Description:</strong> <span  th:text="${work.description}">[Job Description]</span>
-                </li>
-            </ul>
-        </section>
+  <section id="work-experience" class="section">
+    <h2>Work Experience</h2>
+    <ul>
+      <li><strong>Company Name:</strong> <span id="PcompanyName">[Company Name]</span></li>
+      <li><strong>Job Title:</strong> <span id="PjobTitle">[Job Title]</span></li>
+      <li><strong>Location:</strong> <span id="Clocation">[Location]</span></li>
+      <li><strong>Start Date:</strong> <span id="CstartDate">[Start Date]</span></li>
+      <li><strong>End Date:</strong> <span id="CendDate">[End Date]</span></li>
+      <li><strong>Description:</strong> <span id="Pdescription">[Job Description]</span></li>
+    </ul>
+  </section>
 
-        <section id="skills" class="section">
-            <h2>Skills</h2>
-            <ul >
-              <li  ><strong>Languages:</strong> <span  th:text="${resume.skills.languages}">[Languages]</span></li>
-                <li  ><strong>Libraries/Frameworks:</strong> <span  th:text="${resume.skills.libraries_frameworks}">[Libraries/Frameworks]</span></li>
-                <li   ><strong>Tools:</strong> <span  th:text="${resume.skills.tools}" >[Tools]</span></li>
-            </ul>
-        </section>
-   </div>
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <ul>
+      <li><strong>Languages:</strong> <span id="Planguages">[Languages]</span></li>
+      <li><strong>Libraries/Frameworks:</strong> <span id="Plib">[Libraries/Frameworks]</span></li>
+      <li><strong>Tools:</strong> <span id="Ptools">[Tools]</span></li>
+    </ul>
+  </section>
+</div>
+    
+       

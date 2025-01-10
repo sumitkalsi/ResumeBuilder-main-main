@@ -2,12 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments::head}"></head>
  
-
+<link rel="stylesheet" type="text/css" href="/Styles/templateSelection.css?version=51">
 <body>
 
 <nav th:replace="~{fragments::nav}"></nav>
+
+<div class="container"></div>
 <a th:object="${user}" th:href="@{/resume/resumeBuilder/template1/{id}(id=${user.id})}">
-    shflafjklasfjsklafjlksa
+   <img alt="" src="/images/template1.jpg">
+</a>
+<a th:object="${user}" th:href="@{/resume/resumeBuilder/template2/{id}(id=${user.id})}">
+   <img alt="" src="/images/template2.png">
 </a>
 
 

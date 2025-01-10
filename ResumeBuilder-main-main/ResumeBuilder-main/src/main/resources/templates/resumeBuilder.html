@@ -2,31 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments::head}"></head>
  <link rel="stylesheet" th:href="@{/Styles/resumeBuilder.css?version=51}">
-  <link rel="stylesheet" th:href="@{/Styles/template1.css?version=51}">
+  <link rel="stylesheet" th:href="@{/Styles/template2.css?version=51}">
   <style>
    
   </style>
 
 <body>
-  <div class="container">
+
+<div class="export">
+<button>upload resume</button>
+<button type="submit" form="resumeForm">save resume</button>
+<button>export</button>
+
+</div>
+   <div class="container">
     <!-- Form Section -->
     <div class="form-section">
       <h2>Resume Form</h2>
       
       
-      <form id="resumeForm">
+      <form id="resumeForm"  method="post" th:object="${resume}">
+      
+      
       <div class ="section">
         <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name">
+        <input type="text" id="name" name="name" placeholder="Enter your name" th:field="*{name}">
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <input type="email" id="email" name="email" placeholder="Enter your email" th:field="*{email}">
 
         <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" th:field="*{contactNumber}">
         
         <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="Enter your address">
+        <input type="text" id="address" name="address" placeholder="Enter your address" th:field="*{address}">
           
         </div>
      
@@ -40,6 +49,8 @@
         <button>add link</button>
      </div>
      
+     
+     
      <div class="section">
        
         <label for="skills">Skills</label>
@@ -52,14 +63,69 @@
            <label for="tools"></label>
         <input type="text" id="tools" name="tools" placeholder="tools">
 
+    
         </div>
+        
+        
+        
+        <div class="section">
         <label for="experience">Work Experience</label>
-        <textarea id="experience" name="experience" rows="4" placeholder="Describe your work experience"></textarea>
+      
+        <label for="companyName"></label>
+        <input type="text" id="companyName" name="companyName" placeholder="Enter CompanyName">
+        
+          <label for="JobTitle"></label>
+        <input type="text" id="jobTitle" name="JobTitle" placeholder="Enter JobTitle">
+        
+          <label for="location"></label>
+        <input type="text" id="location" name="location" placeholder="Enter location">
+        
+        
+           <label for="startDate"></label>
+        <input type="date" id="startDate" name="startDate" placeholder="Enter startDate">
+        
+       <label for="endDate"></label>
+        <input type="date" id="endDate" name="endDate" placeholder="Enter endDate">
+        
+         <label for="description"></label>
+        <input type="text" id="description" name="description" placeholder="Enter description">
+        
+         <button>add Work Experience</button>
+        
+        </div>
+        
+        <div class= "section">
+        
+          <label for="Education">Education</label>
+      
+        <label for="institute"></label>
+        <input type="text" id="institute" name="institute" placeholder="Enter instituteName">
+        
+          <label for="location"></label>
+        <input type="text" id="Elocation" name="location" placeholder="Enter location">
+        
+         <label for="degreeType"></label>
+        <input type="text" id="degreeType" name="degreeType" placeholder="Enter degreeType">
+        
+         <label for="fieldOfStudy"></label>
+        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter fieldOfStudy">
+        
+            <label for="startDate"></label>
+        <input type="date" id="EstartDate" name="startDate" placeholder="Enter startDate">
+        
+       <label for="endDate"></label>
+        <input type="date" id="EendDate" name="endDate" placeholder="Enter endDate">
+        
+        <label for="score"></label>
+        <input type="text" id="score" name="score" placeholder="Enter score">
+        
+          <button>add Education</button>
+        
+        </div>
+        
+        
 
-        <label for="education">Education</label>
-        <textarea id="education" name="education" rows="4" placeholder="List your educational qualifications"></textarea>
-
-        <button type="button" onclick="updatePreview()">Preview Resume</button>
+      
       </form>
     </div>
 
@@ -67,38 +133,14 @@
     <div class="preview-section">
       <h2>Resume Preview</h2>
       <div id="resumePreview" class="preview" >
-       <div  th:replace = "~{fragments::template1}"></div> 
-      </div>
+      
+      <div th:replace="~{fragments::template2}"></div>
+      
+      
+     </div>
     </div>
   </div>
+ <script src="/Scripts/resumeBuilder.js"></script>
 
-  <script>
-    function updatePreview() {
-      const form = document.getElementById('resumeForm');
-      const preview = document.getElementById('resumePreview');
-
-      const name = form.name.value;
-      const email = form.email.value;
-      const phone = form.phone.value;
-      const summary = form.summary.value;
-      const skills = form.skills.value;
-      const experience = form.experience.value;
-      const education = form.education.value;
-
-      preview.innerHTML = `
-        <h3>${name}</h3>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <h4>Professional Summary</h4>
-        <p>${summary}</p>
-        <h4>Skills</h4>
-        <p>${skills}</p>
-        <h4>Work Experience</h4>
-        <p>${experience}</p>
-        <h4>Education</h4>
-        <p>${education}</p>
-      `;
-    }
-  </script>
 </body>
 </html>
