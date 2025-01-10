@@ -1,28 +1,23 @@
 package com.Application.ResumeBuilder.Controllers;
 
 
-import java.net.URI;
-import java.net.http.HttpClient.Redirect;
-import java.net.http.HttpHeaders;
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Application.ResumeBuilder.Models.ResumeInformation;
-import com.Application.ResumeBuilder.Models.Skills;
+
 import com.Application.ResumeBuilder.Models.Template;
 import com.Application.ResumeBuilder.Models.User;
-import com.Application.ResumeBuilder.Repositories.ResumeInformationRepository;
+
 import com.Application.ResumeBuilder.Services.ResumeService;
 import com.Application.ResumeBuilder.Services.UserService;
 
@@ -47,56 +42,84 @@ public class ResumeController {
 	User user =userService.getUserById(id).orElse(null);
 	
 	model.addAttribute("user", userService.getUserById(id).orElse(null) );
-	
+	System.out.println(user.getId()+"===========================================");
     ResumeInformation resume = new ResumeInformation();
     resume.setUser(user);
 	
 	
 		resumeService.saveResumeInformation(resume);
+		model.addAttribute("resume",resumeService.getResumeByUserId(id).getLast());
 		return "templateSelection";
 		
 	}
 	
-
+	@GetMapping("/resumeBuilder/{id}")
+	public String edit(@PathVariable Long id , Model model) {
+		ResumeInformation resume= resumeService.getResumeById(id);
+		model.addAttribute("resume", resume);
+		model.addAttribute("template",resume.getTemplate().getTemplatePath());
+		 model.addAttribute("exportResume", new String());
+	
+		return"resumeBuilder";
+				
+	}
+	
 	
 	@GetMapping("/resumeBuilder/{template}/{id}")
-	public String resumeBuilder(@PathVariable String template,@PathVariable Long id ,Model model) {
+	public String resumeBuilder(@PathVariable String template,@PathVariable Long id,Model model) {
 		
-		List<ResumeInformation>  list = resumeService.getResumeByUserId(id);
-		ResumeInformation resume = list.getLast();
+		ResumeInformation resume = resumeService.getResumeById(id);
+		
 		Template temp = new Template();
     	temp.setResume(resume);
-    	temp.setTemplatePath(template);
-    	Skills skills = new Skills();
-    	skills.setResume(resume);
     	
-    	resume.setSkills(skills);
+    	temp.setTemplatePath(template);
+    
 		resume.setTemplate(temp);
-	       if(!list.contains(resume)){
+		
+	
+	       
 		resumeService.updateResumeInformation(resume.getId(), resume);
-	       }
+		
+		
+	       
 		model.addAttribute("resume", resume );
 	
-        model.addAttribute("template", resume.getTemplate() );
-		return "resumeBuilder";
+       
+		return "redirect:/resume/resumeBuilder";
 	       
 	       
 	}
-	@PostMapping("/resumeBuilder/{template}/{id}")
-	public ResponseEntity<ResumeInformation> saveResume(  @PathVariable Long id ,@ModelAttribute ResumeInformation resume ){
-	     // Define the redirection URL
-        String redirectUrl = "/user/dashboard";
-         resume.setUser(userService.getUserById(id).orElse(null));
-        // Set the Location header
-        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
-        headers.setLocation(URI.create(redirectUrl));
+	@GetMapping("/resumeBuilder")
+	public String resumeBuilder(@ModelAttribute ResumeInformation resume , Model model) {
+		model.addAttribute("resume",resume);
+		System.out.println(resume.getTemplate().getTemplatePath());
+		model.addAttribute("template","template1");
+		 model.addAttribute("exportResume", new String());
+		return "resumeBuilder";
+	}
+
+	
+	@GetMapping("/resumeBuilder/saveResume/user/dashboard")
+    public String dashboard(@ModelAttribute ResumeInformation resume, Model model )	{
+		User user = resume.getUser();
+		model.addAttribute("user",user);
+		model.addAttribute("resumes",resumeService.getResumeByUserId(user.getId()));
+		return "Dashboard";
+
+	}
+	
+	@PostMapping("/resumeBuilder/saveResume/{id}")
+	public String saveResume( @PathVariable Long id ,@ModelAttribute ResumeInformation resume ,Model model){
+		
+		
+		
+		
+		model.addAttribute("resume",resume);
 		resumeService.updateResumeInformation(resume.getId(), resume);
-		return new ResponseEntity<>(headers,HttpStatus.OK);
+		return "redirect:user/dashboard";
 		
 	}
-	
-	
-
 	
 	
 	

@@ -76,3 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "score",
     ]);
   });
+  
+  function Export() {
+             const resumeInHTML = document.getElementById("resumePreview");
+             const elementAsString = resumeInHTML.outerHTML;
+            document.getElementById("exportinput").value=elementAsString;
+           
+         }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Application.ResumeBuilder.Models.User;
+import com.Application.ResumeBuilder.Services.ResumeService;
 import com.Application.ResumeBuilder.Services.UserService;
 
 
@@ -18,13 +19,13 @@ import com.Application.ResumeBuilder.Services.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+	private ResumeService resumeService;
 	Long userId;
 	private UserService userService;
 
-	public UserController(UserService userService) {
+	public UserController(UserService userService ,ResumeService resumeService) {
 		this.userService = userService;
-		
+		this.resumeService=resumeService;
 	}
 	
 	@GetMapping("/login")
@@ -35,12 +36,14 @@ public class UserController {
 	
 	
 	@PostMapping("/login")
-	public String login(@ModelAttribute User user){
+	public String login(@ModelAttribute User user ,Model model){
 	  User existingUser = 	userService.getUserByEmail(user.getEmail()).orElse(null);
 	  
 	  if(	existingUser!=null&&existingUser.getPassword().equals(user.getPassword())) {
 		  userId=existingUser.getId();
 		  System.out.println(userId);
+		  model.addAttribute("user", existingUser);
+		  model.addAttribute("resumes",resumeService.getResumeByUserId(userId));
 		  return"redirect:/user/dashboard";
 		  
 	  }else {
@@ -68,11 +71,13 @@ public class UserController {
 	
 	@GetMapping("/dashboard")
      public String dashboard(Model model )	{
-		model.addAttribute("user",userService.getUserById(userId).orElse(null));
+		User user =userService.getUserById(userId).orElse(null);
+		model.addAttribute("user",user);
+		model.addAttribute("resumes",resumeService.getResumeByUserId(user.getId()));
 		return "Dashboard";
 
 	}
-	
+
 	
 	
 	

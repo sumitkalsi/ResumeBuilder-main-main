@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class ApiController {
@@ -29,14 +30,15 @@ public class ApiController {
 				json.setFiledata(f.toBase64(file));
 				json.setFilename(file.getName());
 				
-				 
 					ResponseEntity<String> response = restTemplate.postForEntity(targetUrl,json, String.class);
 			        return ResponseEntity.ok(response.getBody());
+			      
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("bad request");
 			}
+		 
 	}
 	
 	

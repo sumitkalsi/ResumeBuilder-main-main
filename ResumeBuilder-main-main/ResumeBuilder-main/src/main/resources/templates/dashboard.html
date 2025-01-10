@@ -20,16 +20,19 @@
       </div>
         </a> 
 
-        <div class="existing-resumes">
+        <div class="existing-resumes" >
             <h2>Your Existing Resumes</h2>
             <div class="cards-container">
-                <div class="card">
-                    <h3>Resume 1</h3>
-                   
-                  
+              
+                <div class="card" th:each="resume : ${resumes}">
+                 <a  th:href="@{/resume/resumeBuilder/{id}(id=${resume.id})}"> 
+                    <h3 th:text="*{resume.id}">Resume 1</h3>
+                      <h3 th:text="*{resume.user.id}">Resume 1</h3>
+                     </a>
                 </div>
-               
+             
             </div>
+            
         </div>
     </div>
 
