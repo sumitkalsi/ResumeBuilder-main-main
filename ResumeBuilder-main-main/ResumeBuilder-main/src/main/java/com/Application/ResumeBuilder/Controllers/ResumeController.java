@@ -5,6 +5,7 @@ package com.Application.ResumeBuilder.Controllers;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,22 +90,22 @@ public class ResumeController {
     
 		resume.getTemplate().setTemplatePath(template);
 		
-	
-		Link link = new Link();
-		link.setResume(resume);
-	    resume.getLinks().add(link);
-		
-	    
-	    WorkExperience work  = new WorkExperience();
-	    work.setResume(resume);
-	    resume.getWorkExperience().add(work);
-	    
-	    Education ed  = new Education();
-	    ed.setResume(resume);
-	    resume.getEducation().add(ed);
-	    
-		
-	    
+	    if (resume.getLinks().isEmpty()) {
+	        Link link = new Link();
+	        link.setResume(resume);
+	        resume.getLinks().add(link);
+	    }
+	    if (resume.getWorkExperience().isEmpty()) {
+	        WorkExperience work = new WorkExperience();
+	        work.setResume(resume);
+	        resume.getWorkExperience().add(work);
+	    }
+	    if (resume.getEducation().isEmpty()) {
+	        Education ed = new Education();
+	        ed.setResume(resume);
+	        resume.getEducation().add(ed);
+	    }
+
 	    
 		resumeService.updateResumeInformation(resume.getId(), resume);
 		
@@ -112,10 +113,10 @@ public class ResumeController {
 		model.addAttribute("resume", resumedb);
 		model.addAttribute("template",resumedb.getTemplate().getTemplatePath());
 	
-	   model.addAttribute("links",resumedb.getLinks());
-	   model.addAttribute("work",resumedb.getWorkExperience());
-	   model.addAttribute("education",resumedb.getEducation());
-       
+//	   model.addAttribute("links",resumedb.getLinks());
+//	   model.addAttribute("work",resumedb.getWorkExperience());
+//	   model.addAttribute("education",resumedb.getEducation());
+	  
 		
 		return "resumeBuilder";
 	       
@@ -140,28 +141,30 @@ public class ResumeController {
 	}
 	
 	@PostMapping({"/resumeBuilder/saveResume/{id}","/resumeBuilder/{template}/saveResume/{id}" })
-	public String saveResume( @PathVariable Long id ,@ModelAttribute ResumeInformation resume ,Model model){
-		
+	public String saveResume( @PathVariable Long id ,@ModelAttribute ResumeInformation resume ){
+		System.out.println(resume+"=========================================================================");
 		
 	      ResumeInformation resumedb = resumeService.getResumeById(id);
-	      resumedb.setAddress(resume.getAddress());
-	      resumedb.setContactNumber(resume.getContactNumber());
-	      resumedb.setEmail(resume.getEmail());
-	      resumedb.setName(resume.getName());
-	   resumedb.getSkills().setLanguages(resume.getSkills().getLanguages());
-	   resumedb.getSkills().setLibraries_frameworks(resume.getSkills().getLibraries_frameworks());
-   resumedb.getSkills().setTools(resume.getSkills().getTools());
+//	      resumedb.setAddress(resume.getAddress());
+//	      resumedb.setContactNumber(resume.getContactNumber());
+//	      resumedb.setEmail(resume.getEmail());
+//	      resumedb.setName(resume.getName());
+//	   resumedb.getSkills().setLanguages(resume.getSkills().getLanguages());
+//	   resumedb.getSkills().setLibraries_frameworks(resume.getSkills().getLibraries_frameworks());
+//   resumedb.getSkills().setTools(resume.getSkills().getTools());
+  
+//   work.stream().forEach(workExperience -> workExperience.setResume(resume));
 		
 		
 	 	 
-	      resumeService.updateResumeInformation(id, resumedb);
-	      
-	   
-	      
-	      userId = resumedb.getUser().getId();
-	      System.out.println(resumedb.getUser().getId()+"======================================================================");
-
-		
+//	      resumeService.updateResumeInformation(id, resumedb);
+//	      
+//	   
+//	      
+   userId = resumedb.getUser().getId();
+//	      System.out.println(resumedb.getUser().getId()+"======================================================================");
+//
+//		
 	
 		
 		return "redirect:user/dashboard";

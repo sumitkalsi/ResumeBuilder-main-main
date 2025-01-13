@@ -9,21 +9,22 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Link {
 
+
 	@Id
 	@GeneratedValue(strategy  = GenerationType.AUTO)
 	private Long id ;
 	
-	private String link =" ";
+	private String linkName =" ";
 	private String url =" ";
 	@ManyToOne
 	private ResumeInformation resume;
 	
 	
-	public String getLink() {
-		return link;
+	public String getLinkName() {
+		return linkName;
 	}
 	public void setLink(String link) {
-		this.link = link;
+		this.linkName = link;
 	}
 	public String getUrl() {
 		return url;
@@ -33,7 +34,7 @@ public class Link {
 	}
 	public Link(String link, String url) {
 		super();
-		this.link = link;
+		this.linkName = link;
 		this.url = url;
 	}
 	public Link() {
@@ -47,7 +48,15 @@ public class Link {
 		this.resume = resume;
 	}
 	
-	
+
+
+	public Link(Long id, String link, String url, ResumeInformation resume) {
+		super();
+		this.id = id;
+		this.linkName = link;
+		this.url = url;
+		this.resume = resume;
+	}
 	
 	
 	

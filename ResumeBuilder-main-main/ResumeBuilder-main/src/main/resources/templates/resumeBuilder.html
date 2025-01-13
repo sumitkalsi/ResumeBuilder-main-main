@@ -36,116 +36,101 @@
       <h2>Resume Form</h2>
       
       
-      <form id="resumeForm" th:object="${resume}"  th:action="@{saveResume/{id}(id=${resume.id})}"  method="post">
+      <form id="resumeForm" th:object="${resume}"   th:action="@{saveResume/{id}(id=${resume.id})}"  method="post">
       
       
-      <div class ="section">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" th:field="*{name}" >
+       <!-- Personal Information -->
+        <div class="section">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" th:field="*{email}" >
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" th:field="*{contactNumber}" >
-        
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="Enter your address" th:field="*{address}" >
-          
-        </div>
-     
-     <div class = "section"  >
-     <label for="link">link</label>
-        <input type="text" id="link" name="link" placeholder="link"  >
-        
-        <label for="url">url</label>
-        <input type="text" id="url" name="url" placeholder="URL" >
-        
-        <button class="button">add link</button>
-     </div>
-     
-     
-     
-     <div class="section">
-       
-        <label for="skills">Skills</label>
-         <label for="languages"></label>
-        <input type="text" id="languages" name="languages" placeholder="Enter programming languages" th:field="*{skills.languages}">
-        
-           <label for="libraries/frameworks"></label>
-        <input type="text" id="lib" name="lib" placeholder="libraries/frameworks" th:field="*{skills.libraries_frameworks}" >
-        
-           <label for="tools"></label>
-        <input type="text" id="tools" name="tools" placeholder="tools" th:field="*{skills.tools}">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="contactNumber" placeholder="Enter your phone number" required>
 
-    
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
         </div>
-        
-        
-        
-        <div class="section" th:each="work : ${work}" >
-        <label for="experience">Work Experience</label>
-      
-        <label for="companyName"></label>
-        <input type="text" id="companyName" name="companyName" placeholder="Enter CompanyName" >
-        
-          <label for="JobTitle"></label>
-        <input type="text" id="jobTitle" name="JobTitle" placeholder="Enter JobTitle"  >
-        
-          <label for="location"></label>
-        <input type="text" id="location" name="location" placeholder="Enter location" >
-        
-        
-           <label for="startDate"></label>
-        <input type="date" id="startDate" name="startDate" placeholder="Enter startDate" >
-        
-       <label for="endDate"></label>
-        <input type="date" id="endDate" name="endDate" placeholder="Enter endDate" >
-        
-         <label for="description"></label>
-        <input type="text" id="description" name="description" placeholder="Enter description"  >
-        
-         <button class="button">add Work Experience</button>
-        
+
+        <!-- Links Section -->
+        <div class="section" id="linkSection" th:each ="links:${resume.links}">
+            <label for="link">Link</label>
+            <input type="text" id="link" name="links[0].linkName" placeholder="Enter link" required>
+
+            <label for="url">URL</label>
+            <input type="text" id="url" name="links[0].url" placeholder="Enter URL" required>
         </div>
+            <button type="button" onclick="addLinkField()">Add Link</button>
         
-        <div class= "section" th:each="education : ${education}">
-        
-          <label for="Education">Education</label>
-      
-        <label for="institute"></label>
-        <input type="text" id="institute" name="institute" placeholder="Enter instituteName" >
-        
-          <label for="location"></label>
-        <input type="text" id="Elocation" name="location" placeholder="Enter location" >
-        
-         <label for="degreeType"></label>
-        <input type="text" id="degreeType" name="degreeType" placeholder="Enter degreeType" >
-        
-         <label for="fieldOfStudy"></label>
-        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter fieldOfStudy" >
-        
-            <label for="startDate"></label>
-        <input type="date" id="EstartDate" name="startDate" placeholder="Enter startDate" >
-        
-       <label for="endDate"></label>
-        <input type="date" id="EendDate" name="endDate" placeholder="Enter endDate" >
-        
-        <label for="score"></label>
-        <input type="text" id="score" name="score" placeholder="Enter score" >
-        
-          <button class="button">add Education</button>
+
+        <!-- Skills Section -->
+        <div class="section">
+            <label for="languages">Programming Languages</label>
+            <input type="text" id="languages" name="skills.languages" placeholder="Enter programming languages" required>
+
+            <label for="lib">Libraries/Frameworks</label>
+            <input type="text" id="lib" name="skills.libraries_frameworks" placeholder="Enter libraries/frameworks" required>
+
+            <label for="tools">Tools</label>
+            <input type="text" id="tools" name="skills.tools" placeholder="Enter tools" required>
+        </div>
+
+        <!-- Work Experience Section -->
+        <div class="section" id="workExperienceSection" th:each="workExperience:${resume.workExperience}">
+            <label for="companyName">Company Name</label>
+            <input type="text" id="companyName" name="workExperience[0].companyName" placeholder="Enter company name" required>
+
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" name="workExperience[0].JobTitle" placeholder="Enter job title" required>
+
+            <label for="location">Location</label>
+            <input type="text" id="location" name="workExperience[0].location" placeholder="Enter location" required>
+
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" name="workExperience[0].startDate" placeholder="Enter start date">
+
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" name="workExperience[0].endDate" placeholder="Enter end date">
+
+            <label for="description">Description</label>
+            <input type="text" id="description" name="workExperience[0].description" placeholder="Enter job description" required>
+
+           
+        </div>
+           <button type="button" onclick="addWorkExperienceField()">Add Work Experience</button>
+        <!-- Education Section -->
+        <div class="section" id="educationSection">
+            <label for="institute">Institute Name</label>
+            <input type="text" id="institute" name="education[0].institute" placeholder="Enter institute name" required>
+
+            <label for="Elocation">Location</label>
+            <input type="text" id="Elocation" name="education[0].location" placeholder="Enter location" required>
+
+            <label for="degreeType">Degree Type</label>
+            <input type="text" id="degreeType" name="education[0].degreeType" placeholder="Enter degree type" required>
+
+            <label for="fieldOfStudy">Field of Study</label>
+            <input type="text" id="fieldOfStudy" name="education[0].fieldOfStudy" placeholder="Enter field of study" required>
+
+            <label for="EstartDate">Start Date</label>
+            <input type="date" id="EstartDate" name="education[0].startDate" placeholder="Enter start date">
+
+            <label for="EendDate">End Date</label>
+            <input type="date" id="EendDate" name="education[0].endDate" placeholder="Enter end date">
+
+            <label for="score">Score</label>
+            <input type="text" id="score" name="education[0].score" placeholder="Enter score" required>
+
+            
+        </div>
+        <button type="button" onclick="addEducationField()">Add Education</button>
+         </form>
         
         </div>
         
-        
-
-      
-      </form>
-    </div>
-
-    <!-- Preview Section -->
-    <div class="preview-section">
+         <div class="preview-section">
       <h2>Resume Preview</h2>
       <div id="resumePreview" class="preview" >
       
@@ -154,7 +139,15 @@
       
      </div>
     </div>
-  </div>
+
+      
+      
+    </div>
+
+    <!-- Preview Section -->
+   
+    
+ 
  <script src="/Scripts/resumeBuilder.js"></script>
 <script type="text/javascript">	document.getElementById("export").addEventListener("click", function () {
     // Prevent form submission to process content first

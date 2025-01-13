@@ -77,6 +77,9 @@
     }
 
     .preview {
+    
+    flex-direction:column;
+    
       padding: 10px;
       font-size: 1rem;
       color: #333;
@@ -96,7 +99,7 @@
       
         }
         #upload{
-      
+        opacity:0;
         width:115px;
         position:absolute;
         z-index:1;

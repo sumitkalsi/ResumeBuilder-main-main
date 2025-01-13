@@ -49,7 +49,7 @@ public class ResumeInformation {
 	
 	@OneToMany(mappedBy = "resume" ,cascade=CascadeType.ALL )
 	
-	private List<Link> links;
+	private  List<Link> links;
 	
 
 //education==========================================================
@@ -184,7 +184,15 @@ public class ResumeInformation {
 	public void setLinks(List<Link> links) {
 		this.links = links;
 	}
-
+    public int getLinksSize() {
+        return links.size();
+    }
+    public int getWorkExperienceSize() {
+        return workExperience.size();
+    }
+    public int getEducationSize() {
+        return education.size();
+    }
 	
 	@Override
 	public String toString() {
