@@ -2,13 +2,17 @@
 package com.Application.ResumeBuilder.Services;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Application.ResumeBuilder.Models.Link;
 import com.Application.ResumeBuilder.Models.ResumeInformation;
-
+import com.Application.ResumeBuilder.Models.Skills;
+import com.Application.ResumeBuilder.Models.Template;
 import com.Application.ResumeBuilder.Models.User;
 import com.Application.ResumeBuilder.Repositories.UserRepository;
 
@@ -51,6 +55,21 @@ public class UserService {
 
   public User addResume(Long id , ResumeInformation resume) {
 	  User user = getUserById(id).orElse(null);
+	
+	   Template t = new Template();
+	    t.setResume(resume);
+	    resume.setTemplate(t);
+	  
+	 
+	 Skills skills = new Skills();
+	 skills.setResume(resume);
+	 resume.setSkills(skills);
+	   
+	  
+	    
+	    
+	    
+	  resume.setUser(user);
 	  
 	  user.getResumes().add(resume);
 	  return userRepo.save(user);

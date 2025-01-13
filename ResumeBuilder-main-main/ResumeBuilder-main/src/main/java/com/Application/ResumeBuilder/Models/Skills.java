@@ -101,5 +101,11 @@ public Skills(Long id, ResumeInformation resume, String languages, String librar
 	this.tools = tools;
 }
 
+@Override
+public String toString() {
+	return "Skills [id=" + id + ", resume=" + resume + ", languages=" + languages + ", libraries_frameworks="
+			+ libraries_frameworks + ", tools=" + tools + "]";
+}
+
 
 }

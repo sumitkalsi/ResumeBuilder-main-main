@@ -29,38 +29,33 @@ public class ResumeService {
 		this.resumeRepo=resumeRepo;
 	}
 	
+    // Add Links to a Resume
+    public ResumeInformation addLinksToResume(Long resumeId, List<Link> links) {
+        ResumeInformation resume = resumeRepo.findById(resumeId)
+            .orElseThrow(() -> new RuntimeException("Resume not found"));
+        
+   
+
+        // Set the parent for each link
+        for (Link link : links) {
+            link.setResume(resume);
+        }
+
+        // Add links to the resume and save
+        resume.getLinks().addAll(links);
+        
+        return resumeRepo.save(resume);
+    }
 	
 	
 	  // Create or update ResumeInformation
     public ResumeInformation saveResumeInformation(ResumeInformation resumeInformation) {
-    	ResumeInformation resume = new ResumeInformation();
-    	Template template = new Template();
-    	Link link = new Link();
-    	WorkExperience work = new WorkExperience();
-    	Education ed = new Education();
-    	Skills skill = new Skills();
-    	
-    	
-    	List<WorkExperience> workex =new ArrayList<WorkExperience>();
-    	workex.add(work);
-    	
-    	List<Link> links = new ArrayList<Link>();
-    	links.add(link);
-    	
-    	List<Education> education =new ArrayList<Education>();
-    	education.add(ed);
-    	
-    	resume.setSkills(skill);
-    	resume.setTemplate(template);
-    	resume.setLinks(links);
-    	resume.setWorkExperience(workex);
-    	resume.setEducation(education);
-    	
-    	resume.setUser(resumeInformation.getUser());
     
-        return resumeRepo.save(resume);
+    
+        return resumeRepo.save(resumeInformation);
     }
 
+    
     // Get all resumes
     public List<ResumeInformation> getAllResumes() {
         return (List<ResumeInformation>) resumeRepo.findAll();

@@ -4,6 +4,8 @@ package com.Application.ResumeBuilder.Controllers;
 
 
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.Application.ResumeBuilder.Models.Education;
+import com.Application.ResumeBuilder.Models.Link;
 import com.Application.ResumeBuilder.Models.ResumeInformation;
-
+import com.Application.ResumeBuilder.Models.Skills;
 import com.Application.ResumeBuilder.Models.Template;
 import com.Application.ResumeBuilder.Models.User;
-
+import com.Application.ResumeBuilder.Models.WorkExperience;
 import com.Application.ResumeBuilder.Services.ResumeService;
 import com.Application.ResumeBuilder.Services.UserService;
 
@@ -37,86 +41,129 @@ public class ResumeController {
 	
 	@GetMapping("/templateSelection/{id}")
 	public String templateSelection(@PathVariable Long id , Model model) {
-	userId=id;
+	
 	
 	User user =userService.getUserById(id).orElse(null);
 	
-	model.addAttribute("user", userService.getUserById(id).orElse(null) );
-	System.out.println(user.getId()+"===========================================");
+	model.addAttribute("user", user );
+
     ResumeInformation resume = new ResumeInformation();
-    resume.setUser(user);
+ 
+    
+    userService.addResume(id, resume);
 	
 	
-		resumeService.saveResumeInformation(resume);
 		model.addAttribute("resume",resumeService.getResumeByUserId(id).getLast());
 		return "templateSelection";
 		
 	}
+	
+//	WORKING FOR RESUMEBUILDER FOR EXISTING RESUME========================================================
 	
 	@GetMapping("/resumeBuilder/{id}")
 	public String edit(@PathVariable Long id , Model model) {
 		ResumeInformation resume= resumeService.getResumeById(id);
 		model.addAttribute("resume", resume);
 		model.addAttribute("template",resume.getTemplate().getTemplatePath());
-		 model.addAttribute("exportResume", new String());
-	
+		
+		  model.addAttribute("links",resume.getLinks());
+		   model.addAttribute("work",resume.getWorkExperience());
+		   model.addAttribute("education",resume.getEducation());
 		return"resumeBuilder";
 				
 	}
+
+//========================================================================================================	
 	
+	
+	
+	
+//	WORKING for resumebuilder from templateselection======================================================================
 	
 	@GetMapping("/resumeBuilder/{template}/{id}")
 	public String resumeBuilder(@PathVariable String template,@PathVariable Long id,Model model) {
 		
 		ResumeInformation resume = resumeService.getResumeById(id);
 		
-		Template temp = new Template();
-    	temp.setResume(resume);
-    	
-    	temp.setTemplatePath(template);
+	
     
-		resume.setTemplate(temp);
+		resume.getTemplate().setTemplatePath(template);
 		
 	
-	       
+		Link link = new Link();
+		link.setResume(resume);
+	    resume.getLinks().add(link);
+		
+	    
+	    WorkExperience work  = new WorkExperience();
+	    work.setResume(resume);
+	    resume.getWorkExperience().add(work);
+	    
+	    Education ed  = new Education();
+	    ed.setResume(resume);
+	    resume.getEducation().add(ed);
+	    
+		
+	    
+	    
 		resumeService.updateResumeInformation(resume.getId(), resume);
 		
-		
-	       
-		model.addAttribute("resume", resume );
+		ResumeInformation resumedb= resumeService.getResumeById(id);
+		model.addAttribute("resume", resumedb);
+		model.addAttribute("template",resumedb.getTemplate().getTemplatePath());
 	
+	   model.addAttribute("links",resumedb.getLinks());
+	   model.addAttribute("work",resumedb.getWorkExperience());
+	   model.addAttribute("education",resumedb.getEducation());
        
-		return "redirect:/resume/resumeBuilder";
-	       
-	       
-	}
-	@GetMapping("/resumeBuilder")
-	public String resumeBuilder(@ModelAttribute ResumeInformation resume , Model model) {
-		model.addAttribute("resume",resume);
-		System.out.println(resume.getTemplate().getTemplatePath());
-		model.addAttribute("template","template1");
-		 model.addAttribute("exportResume", new String());
+		
 		return "resumeBuilder";
+	       
+	       
 	}
+	
+//===================================================================	
+	
+
 
 	
-	@GetMapping("/resumeBuilder/saveResume/user/dashboard")
-    public String dashboard(@ModelAttribute ResumeInformation resume, Model model )	{
-		User user = resume.getUser();
+	@GetMapping({"/resumeBuilder/saveResume/user/dashboard","/resumeBuilder/{template}/saveResume/user/dashboard" })
+    public String dashboard( Model model )	{
+		
+		User user =userService.getUserById(userId).orElse(null);
 		model.addAttribute("user",user);
 		model.addAttribute("resumes",resumeService.getResumeByUserId(user.getId()));
+		
+		
 		return "Dashboard";
 
 	}
 	
-	@PostMapping("/resumeBuilder/saveResume/{id}")
+	@PostMapping({"/resumeBuilder/saveResume/{id}","/resumeBuilder/{template}/saveResume/{id}" })
 	public String saveResume( @PathVariable Long id ,@ModelAttribute ResumeInformation resume ,Model model){
 		
 		
+	      ResumeInformation resumedb = resumeService.getResumeById(id);
+	      resumedb.setAddress(resume.getAddress());
+	      resumedb.setContactNumber(resume.getContactNumber());
+	      resumedb.setEmail(resume.getEmail());
+	      resumedb.setName(resume.getName());
+	   resumedb.getSkills().setLanguages(resume.getSkills().getLanguages());
+	   resumedb.getSkills().setLibraries_frameworks(resume.getSkills().getLibraries_frameworks());
+   resumedb.getSkills().setTools(resume.getSkills().getTools());
 		
 		
-		model.addAttribute("resume",resume);
-		resumeService.updateResumeInformation(resume.getId(), resume);
+	 	 
+	      resumeService.updateResumeInformation(id, resumedb);
+	      
+	   
+	      
+	      userId = resumedb.getUser().getId();
+	      System.out.println(resumedb.getUser().getId()+"======================================================================");
+
+		
+	
+		
 		return "redirect:user/dashboard";
 		
 	}

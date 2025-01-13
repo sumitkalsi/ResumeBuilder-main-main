@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::head}"></head>
+ 
+<link rel="stylesheet" type="text/css" href="/Styles/templateSelection.css?version=51">
+<body>
+
+<nav th:replace="~{fragments::nav}"></nav>
+
+<div class="container" th:object="${resume}" ></div>
+<a   th:href="@{/resume/resumeBuilder/template1/{id}(id=${resume.id})}">
+   <img alt="" src="/images/template1.png">
+</a>
+<a  th:href="@{/resume/resumeBuilder/template2/{id}(id=${resume.id})}">
+   <img alt="" src="/images/template2.png">
+</a>
+
+
+
+</body>
+
+</html>

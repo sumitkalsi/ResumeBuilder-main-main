@@ -88,22 +88,3 @@
      padding: 10px ;
      
         }
-        
-        
-        #uploadDiv{
-        height:35px;
-        display:flex;
-      
-        }
-        #upload{
-      
-        width:115px;
-        position:absolute;
-        z-index:1;
-        }
-        
-         #uploadbtn{
-         position:absolute;
-         z-index:-1;
-       
-        } 

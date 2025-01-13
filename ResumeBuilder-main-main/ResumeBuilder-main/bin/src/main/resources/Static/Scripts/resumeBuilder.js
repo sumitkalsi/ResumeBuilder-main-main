@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-	
-
-         
-	
     const form = document.getElementById("resumeForm");
 
     // Map input fields to preview IDs
@@ -38,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const previewField = document.getElementById(fieldMap[fieldId]);
 
       if (inputField && previewField) {
-        inputField.addEventListener("click", () => {
+        inputField.addEventListener("input", () => {
           previewField.textContent = inputField.value || `[${inputField.placeholder}]`;
         });
       }
@@ -81,4 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ]);
   });
   
- 
+  function Export() {
+             const resumeInHTML = document.getElementById("resumePreview");
+             const elementAsString = resumeInHTML.outerHTML;
+            document.getElementById("exportinput").value=elementAsString;
+           
+         }

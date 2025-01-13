@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::head}"></head>
+ <link rel="stylesheet" th:href="@{/Styles/resumeBuilder.css?version=51}">
+  
+  
+
+<body>
+
+<div class="export">
+  <a  ><button>upload resume</button></a>
+<button type="submit" form="resumeForm">save resume</button>
+
+
+<form id="exporthtml" action="/user/dashboard" method="post">
+  <input type="hidden" id="exportinput" th:field="*{exportResume}"   required>
+   <button id="export" onClick="Export()"> export </button>
+</form>
+</div>
+   <div class="container">
+    <!-- Form Section -->
+    <div class="form-section">
+      <h2>Resume Form</h2>
+      
+      
+      <form id="resumeForm" th:object="${resume}"  th:action="@{saveResume/{id}(id=${resume.id})}"  method="post">
+      
+      
+      <div class ="section">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" th:field="*{name}" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" th:field="*{email}" required>
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" th:field="*{contactNumber}" required>
+        
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" th:field="*{address}" required>
+          
+        </div>
+     
+     <div class = "section">
+     <label for="link">link</label>
+        <input type="text" id="link" name="link" placeholder="link" required>
+        
+        <label for="url">url</label>
+        <input type="text" id="url" name="url" placeholder="URL" required>
+        
+        <button>add link</button>
+     </div>
+     
+     
+     
+     <div class="section">
+       
+        <label for="skills">Skills</label>
+         <label for="languages"></label>
+        <input type="text" id="languages" name="languages" placeholder="Enter programming languages" required>
+        
+           <label for="libraries/frameworks"></label>
+        <input type="text" id="lib" name="lib" placeholder="libraries/frameworks" required>
+        
+           <label for="tools"></label>
+        <input type="text" id="tools" name="tools" placeholder="tools"required>
+
+    
+        </div>
+        
+        
+        
+        <div class="section">
+        <label for="experience">Work Experience</label>
+      
+        <label for="companyName"></label>
+        <input type="text" id="companyName" name="companyName" placeholder="Enter CompanyName" required>
+        
+          <label for="JobTitle"></label>
+        <input type="text" id="jobTitle" name="JobTitle" placeholder="Enter JobTitle" required>
+        
+          <label for="location"></label>
+        <input type="text" id="location" name="location" placeholder="Enter location" required>
+        
+        
+           <label for="startDate"></label>
+        <input type="date" id="startDate" name="startDate" placeholder="Enter startDate" required>
+        
+       <label for="endDate"></label>
+        <input type="date" id="endDate" name="endDate" placeholder="Enter endDate" required>
+        
+         <label for="description"></label>
+        <input type="text" id="description" name="description" placeholder="Enter description" required>
+        
+         <button>add Work Experience</button>
+        
+        </div>
+        
+        <div class= "section">
+        
+          <label for="Education">Education</label>
+      
+        <label for="institute"></label>
+        <input type="text" id="institute" name="institute" placeholder="Enter instituteName"required>
+        
+          <label for="location"></label>
+        <input type="text" id="Elocation" name="location" placeholder="Enter location"required>
+        
+         <label for="degreeType"></label>
+        <input type="text" id="degreeType" name="degreeType" placeholder="Enter degreeType" required>
+        
+         <label for="fieldOfStudy"></label>
+        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter fieldOfStudy"required>
+        
+            <label for="startDate"></label>
+        <input type="date" id="EstartDate" name="startDate" placeholder="Enter startDate"required>
+        
+       <label for="endDate"></label>
+        <input type="date" id="EendDate" name="endDate" placeholder="Enter endDate"required>
+        
+        <label for="score"></label>
+        <input type="text" id="score" name="score" placeholder="Enter score">
+        
+          <button>add Education</button>
+        
+        </div>
+        
+        
+
+      
+      </form>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="preview-section">
+      <h2>Resume Preview</h2>
+      <div id="resumePreview" class="preview" >
+      
+      <div th:replace="~{fragments::${template}}"></div>
+      
+      
+     </div>
+    </div>
+  </div>
+ <script src="/Scripts/resumeBuilder.js"></script>
+
+</body>
+</html>

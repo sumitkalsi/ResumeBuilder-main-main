@@ -8,14 +8,27 @@
 <body>
 
 <div class="export">
-  <a  ><button>upload resume</button></a>
+<div id = "uploadDiv">
+ <button id="uploadbtn" type="submit" form="uploadresume"> upload resume </button>
+ <form id="uploadresume" action="/resume/api" method="post" enctype="multipart/form-data">
+   
+   
+  <input type="file"  id="upload" />
+  
+    
+</form>
+
+ </div> 
+  
+
 <button type="submit" form="resumeForm">save resume</button>
 
-
-<form id="exporthtml" action="/user/dashboard" method="post">
-  <input type="hidden" id="exportinput" th:field="*{exportResume}"   required>
-   <button id="export" onClick="Export()"> export </button>
+<form id="exporthtml" action="/export" method="post">
+  <input type="hidden" id="exportinput" name="exportResume"  >
+   <button id="export" type="submit"> export </button>
 </form>
+
+
 </div>
    <div class="container">
     <!-- Form Section -->
@@ -28,27 +41,27 @@
       
       <div class ="section">
         <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" th:field="*{name}" required>
+        <input type="text" id="name" name="name" placeholder="Enter your name" th:field="*{name}" >
 
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" th:field="*{email}" required>
+        <input type="email" id="email" name="email" placeholder="Enter your email" th:field="*{email}" >
 
         <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" th:field="*{contactNumber}" required>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" th:field="*{contactNumber}" >
         
         <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="Enter your address" th:field="*{address}" required>
+        <input type="text" id="address" name="address" placeholder="Enter your address" th:field="*{address}" >
           
         </div>
      
-     <div class = "section">
+     <div class = "section"  >
      <label for="link">link</label>
-        <input type="text" id="link" name="link" placeholder="link" required>
+        <input type="text" id="link" name="link" placeholder="link"  >
         
         <label for="url">url</label>
-        <input type="text" id="url" name="url" placeholder="URL" required>
+        <input type="text" id="url" name="url" placeholder="URL" >
         
-        <button>add link</button>
+        <button class="button">add link</button>
      </div>
      
      
@@ -57,71 +70,71 @@
        
         <label for="skills">Skills</label>
          <label for="languages"></label>
-        <input type="text" id="languages" name="languages" placeholder="Enter programming languages" required>
+        <input type="text" id="languages" name="languages" placeholder="Enter programming languages" th:field="*{skills.languages}">
         
            <label for="libraries/frameworks"></label>
-        <input type="text" id="lib" name="lib" placeholder="libraries/frameworks" required>
+        <input type="text" id="lib" name="lib" placeholder="libraries/frameworks" th:field="*{skills.libraries_frameworks}" >
         
            <label for="tools"></label>
-        <input type="text" id="tools" name="tools" placeholder="tools"required>
+        <input type="text" id="tools" name="tools" placeholder="tools" th:field="*{skills.tools}">
 
     
         </div>
         
         
         
-        <div class="section">
+        <div class="section" th:each="work : ${work}" >
         <label for="experience">Work Experience</label>
       
         <label for="companyName"></label>
-        <input type="text" id="companyName" name="companyName" placeholder="Enter CompanyName" required>
+        <input type="text" id="companyName" name="companyName" placeholder="Enter CompanyName" >
         
           <label for="JobTitle"></label>
-        <input type="text" id="jobTitle" name="JobTitle" placeholder="Enter JobTitle" required>
+        <input type="text" id="jobTitle" name="JobTitle" placeholder="Enter JobTitle"  >
         
           <label for="location"></label>
-        <input type="text" id="location" name="location" placeholder="Enter location" required>
+        <input type="text" id="location" name="location" placeholder="Enter location" >
         
         
            <label for="startDate"></label>
-        <input type="date" id="startDate" name="startDate" placeholder="Enter startDate" required>
+        <input type="date" id="startDate" name="startDate" placeholder="Enter startDate" >
         
        <label for="endDate"></label>
-        <input type="date" id="endDate" name="endDate" placeholder="Enter endDate" required>
+        <input type="date" id="endDate" name="endDate" placeholder="Enter endDate" >
         
          <label for="description"></label>
-        <input type="text" id="description" name="description" placeholder="Enter description" required>
+        <input type="text" id="description" name="description" placeholder="Enter description"  >
         
-         <button>add Work Experience</button>
+         <button class="button">add Work Experience</button>
         
         </div>
         
-        <div class= "section">
+        <div class= "section" th:each="education : ${education}">
         
           <label for="Education">Education</label>
       
         <label for="institute"></label>
-        <input type="text" id="institute" name="institute" placeholder="Enter instituteName"required>
+        <input type="text" id="institute" name="institute" placeholder="Enter instituteName" >
         
           <label for="location"></label>
-        <input type="text" id="Elocation" name="location" placeholder="Enter location"required>
+        <input type="text" id="Elocation" name="location" placeholder="Enter location" >
         
          <label for="degreeType"></label>
-        <input type="text" id="degreeType" name="degreeType" placeholder="Enter degreeType" required>
+        <input type="text" id="degreeType" name="degreeType" placeholder="Enter degreeType" >
         
          <label for="fieldOfStudy"></label>
-        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter fieldOfStudy"required>
+        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter fieldOfStudy" >
         
             <label for="startDate"></label>
-        <input type="date" id="EstartDate" name="startDate" placeholder="Enter startDate"required>
+        <input type="date" id="EstartDate" name="startDate" placeholder="Enter startDate" >
         
        <label for="endDate"></label>
-        <input type="date" id="EendDate" name="endDate" placeholder="Enter endDate"required>
+        <input type="date" id="EendDate" name="endDate" placeholder="Enter endDate" >
         
         <label for="score"></label>
-        <input type="text" id="score" name="score" placeholder="Enter score">
+        <input type="text" id="score" name="score" placeholder="Enter score" >
         
-          <button>add Education</button>
+          <button class="button">add Education</button>
         
         </div>
         
@@ -143,6 +156,26 @@
     </div>
   </div>
  <script src="/Scripts/resumeBuilder.js"></script>
+<script type="text/javascript">	document.getElementById("export").addEventListener("click", function () {
+    // Prevent form submission to process content first
+    const containerContent = document.getElementById("resumePreview").innerHTML;
 
+    // Set the hidden input value
+    document.getElementById("exportinput").value = containerContent;
+    
+});
+const fileInput = document.getElementById('upload');
+
+fileInput.addEventListener('change', () => {
+	 const file = fileInput.files[0];
+	 if (file) {
+		 document.getElementById('uploadbtn').style.zIndex = 1;
+		 document.getElementById('upload').style.zIndex=-1;
+	 }
+	 
+	
+});
+
+</script>
 </body>
 </html>
