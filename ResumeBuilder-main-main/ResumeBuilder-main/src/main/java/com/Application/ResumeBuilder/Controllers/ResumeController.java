@@ -4,27 +4,23 @@ package com.Application.ResumeBuilder.Controllers;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.Application.ResumeBuilder.Models.Education;
-import com.Application.ResumeBuilder.Models.Link;
+
 import com.Application.ResumeBuilder.Models.ResumeInformation;
-import com.Application.ResumeBuilder.Models.Skills;
-import com.Application.ResumeBuilder.Models.Template;
+
 import com.Application.ResumeBuilder.Models.User;
-import com.Application.ResumeBuilder.Models.WorkExperience;
+
 import com.Application.ResumeBuilder.Services.ResumeService;
 import com.Application.ResumeBuilder.Services.UserService;
 
@@ -92,21 +88,21 @@ public class ResumeController {
     
 		resume.getTemplate().setTemplatePath(template);
 		
-	    if (resume.getLinks().isEmpty()) {
-	        Link link = new Link();
-	        link.setResume(resume);
-	        resume.getLinks().add(link);
-	    }
-	    if (resume.getWorkExperience().isEmpty()) {
-	        WorkExperience work = new WorkExperience();
-	        work.setResume(resume);
-	        resume.getWorkExperience().add(work);
-	    }
-	    if (resume.getEducation().isEmpty()) {
-	        Education ed = new Education();
-	        ed.setResume(resume);
-	        resume.getEducation().add(ed);
-	    }
+//	    if (resume.getLinks().isEmpty()) {
+//	        Link link = new Link();
+//	        link.setResume(resume);
+//	        resume.getLinks().add(link);
+//	    }
+//	    if (resume.getWorkExperience().isEmpty()) {
+//	        WorkExperience work = new WorkExperience();
+//	        work.setResume(resume);
+//	        resume.getWorkExperience().add(work);
+//	    }
+//	    if (resume.getEducation().isEmpty()) {
+//	        Education ed = new Education();
+//	        ed.setResume(resume);
+//	        resume.getEducation().add(ed);
+//	    }
 
 	    
 		resumeService.updateResumeInformation(resume.getId(), resume);
@@ -144,30 +140,30 @@ public class ResumeController {
 	
 	@PostMapping({"/resumeBuilder/saveResume/{id}","/resumeBuilder/{template}/saveResume/{id}" })
 	public String saveResume( @PathVariable Long id ,@RequestBody ResumeInformation resume){
-		System.out.println(resume+"=========================================================================");
-		 
+		
 		
 	      ResumeInformation resumedb = resumeService.getResumeById(id);
-//	      resumedb.setAddress(resume.getAddress());
-//	      resumedb.setContactNumber(resume.getContactNumber());
-//	      resumedb.setEmail(resume.getEmail());
-//	      resumedb.setName(resume.getName());
-//	   resumedb.getSkills().setLanguages(resume.getSkills().getLanguages());
-//	   resumedb.getSkills().setLibraries_frameworks(resume.getSkills().getLibraries_frameworks());
-//   resumedb.getSkills().setTools(resume.getSkills().getTools());
+	      userId = resumedb.getUser().getId();
   
-//   work.stream().forEach(workExperience -> workExperience.setResume(resume));
+   resume.getWorkExperience().stream().forEach(workExperience -> workExperience.setResume(resumedb));
+	resume.getEducation().stream().forEach(education -> education.setResume(resumedb));	
+	resume.getLinks().stream().forEach(link -> link.setResume(resumedb));
+		resume.getSkills().setResume(resumedb);
 		
-		
-	 	 
-//	      resumeService.updateResumeInformation(id, resumedb);
-//	      
-//	   
-//	      
-   userId = resumedb.getUser().getId();
-//	      System.out.println(resumedb.getUser().getId()+"======================================================================");
-//
-//		
+	 	 resumedb.setAddress(resume.getAddress());
+	 	 resumedb.setContactNumber(resume.getContactNumber());
+	 	 resumedb.setEmail(resume.getEmail());
+	 	 resumedb.setName(resume.getName());
+         resumedb.getSkills().setLanguages(resume.getSkills().getLanguages());
+         resumedb.getSkills().setLibraries_frameworks(resume.getSkills().getLibraries_frameworks());
+         resumedb.getSkills().setTools(resume.getSkills().getTools());
+         resumedb.setWorkExperience(resume.getWorkExperience());
+	 	 resumedb.setEducation(resume.getEducation());
+	 	 resumedb.setLinks(resume.getLinks());
+      resumeService.updateResumeInformation(id, resumedb);
+      
+   
+	
 	
 		
 	return "redirect:user/dashboard";

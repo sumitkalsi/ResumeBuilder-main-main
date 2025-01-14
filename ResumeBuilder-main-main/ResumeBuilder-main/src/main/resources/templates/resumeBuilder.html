@@ -7,16 +7,21 @@
 
 <body>
 
+
+
+
 <div class="export">
 <div id = "uploadDiv">
- <button id="uploadbtn" type="submit" form="uploadresume"> upload resume </button>
- <form id="uploadresume" action="/resume/api" method="post" enctype="multipart/form-data">
-   
-   
-  <input type="file"  id="upload" />
-  
-    
-</form>
+ <form
+    id="uploadForm"
+    method="post"
+    th:action="@{/resume/api/{id}(id=${resume.id})}"
+    enctype="multipart/form-data">
+    <input id="input-file" type="file" name="file" />
+    <button class="btn btn-sm btn-outline-success float-right" type="submit">
+      Upload
+    </button>
+  </form>
 
  </div> 
   

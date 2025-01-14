@@ -43,7 +43,7 @@ public class PdfController {
 	            e.printStackTrace();
 	        }
 		
-		System.out.println(exportResume +"=============================================================================");
+		
 		return ResponseEntity.ok("response");
 	}
 
