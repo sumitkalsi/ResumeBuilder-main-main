@@ -21,7 +21,7 @@
  </div> 
   
 
-<button type="submit" form="resumeForm">save resume</button>
+<button type="submit" id="submitformbutton" form="resumeForm">save resume</button>
 
 <form id="exporthtml" action="/export" method="post">
   <input type="hidden" id="exportinput" name="exportResume"  >
@@ -36,31 +36,32 @@
       <h2>Resume Form</h2>
       
       
-      <form id="resumeForm" th:object="${resume}"   th:action="@{saveResume/{id}(id=${resume.id})}"  method="post">
+      <form id="resumeForm" th:object="${resume}"  >
       
       
        <!-- Personal Information -->
         <div class="section">
+        <input type="hidden" id="resumeId" name="resumeId" th:value="${resume.id}" required>
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            <input type="text" id="name" name="name" placeholder="Enter your name" >
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <input type="email" id="email" name="email" placeholder="Enter your email" >
 
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="contactNumber" placeholder="Enter your phone number" required>
+            <input type="tel" id="phone" name="contactNumber" placeholder="Enter your phone number" >
 
             <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            <input type="text" id="address" name="address" placeholder="Enter your address" >
         </div>
 
         <!-- Links Section -->
-        <div class="section" id="linkSection" th:each ="links:${resume.links}">
+        <div class="section" id="linkSection" th:each ="links:${resume.links}" >
             <label for="link">Link</label>
-            <input type="text" id="link" name="links[0].linkName" placeholder="Enter link" required>
+            <input type="text" id="link" name="links[0].linkName" placeholder="Enter link" >
 
             <label for="url">URL</label>
-            <input type="text" id="url" name="links[0].url" placeholder="Enter URL" required>
+            <input type="text" id="url" name="links[0].url" placeholder="Enter URL" >
         </div>
             <button type="button" onclick="addLinkField()">Add Link</button>
         
@@ -68,34 +69,34 @@
         <!-- Skills Section -->
         <div class="section">
             <label for="languages">Programming Languages</label>
-            <input type="text" id="languages" name="skills.languages" placeholder="Enter programming languages" required>
+            <input type="text" id="languages" name="skills.languages" placeholder="Enter programming languages" >
 
             <label for="lib">Libraries/Frameworks</label>
-            <input type="text" id="lib" name="skills.libraries_frameworks" placeholder="Enter libraries/frameworks" required>
+            <input type="text" id="lib" name="skills.libraries_frameworks" placeholder="Enter libraries/frameworks" >
 
             <label for="tools">Tools</label>
-            <input type="text" id="tools" name="skills.tools" placeholder="Enter tools" required>
+            <input type="text" id="tools" name="skills.tools" placeholder="Enter tools" >
         </div>
 
         <!-- Work Experience Section -->
         <div class="section" id="workExperienceSection" th:each="workExperience:${resume.workExperience}">
             <label for="companyName">Company Name</label>
-            <input type="text" id="companyName" name="workExperience[0].companyName" placeholder="Enter company name" required>
+            <input type="text" id="companyName" name="workExperience[0].companyName" placeholder="Enter company name" >
 
             <label for="jobTitle">Job Title</label>
-            <input type="text" id="jobTitle" name="workExperience[0].JobTitle" placeholder="Enter job title" required>
+            <input type="text" id="jobTitle" name="workExperience[0].JobTitle" placeholder="Enter job title" >
 
             <label for="location">Location</label>
-            <input type="text" id="location" name="workExperience[0].location" placeholder="Enter location" required>
+            <input type="text" id="location" name="workExperience[0].location" placeholder="Enter location" >
 
             <label for="startDate">Start Date</label>
-            <input type="date" id="startDate" name="workExperience[0].startDate" placeholder="Enter start date">
+            <input type="date" id="startDate" name="workExperience[0].startDate" placeholder="Enter start date" >
 
             <label for="endDate">End Date</label>
-            <input type="date" id="endDate" name="workExperience[0].endDate" placeholder="Enter end date">
+            <input type="date" id="endDate" name="workExperience[0].endDate" placeholder="Enter end date" >
 
             <label for="description">Description</label>
-            <input type="text" id="description" name="workExperience[0].description" placeholder="Enter job description" required>
+            <input type="text" id="description" name="workExperience[0].description" placeholder="Enter job description" >
 
            
         </div>
@@ -103,16 +104,16 @@
         <!-- Education Section -->
         <div class="section" id="educationSection">
             <label for="institute">Institute Name</label>
-            <input type="text" id="institute" name="education[0].institute" placeholder="Enter institute name" required>
+            <input type="text" id="institute" name="education[0].institute" placeholder="Enter institute name" >
 
             <label for="Elocation">Location</label>
-            <input type="text" id="Elocation" name="education[0].location" placeholder="Enter location" required>
+            <input type="text" id="Elocation" name="education[0].location" placeholder="Enter location" >
 
             <label for="degreeType">Degree Type</label>
-            <input type="text" id="degreeType" name="education[0].degreeType" placeholder="Enter degree type" required>
+            <input type="text" id="degreeType" name="education[0].degreeType" placeholder="Enter degree type" >
 
             <label for="fieldOfStudy">Field of Study</label>
-            <input type="text" id="fieldOfStudy" name="education[0].fieldOfStudy" placeholder="Enter field of study" required>
+            <input type="text" id="fieldOfStudy" name="education[0].fieldOfStudy" placeholder="Enter field of study"  >
 
             <label for="EstartDate">Start Date</label>
             <input type="date" id="EstartDate" name="education[0].startDate" placeholder="Enter start date">
@@ -121,7 +122,7 @@
             <input type="date" id="EendDate" name="education[0].endDate" placeholder="Enter end date">
 
             <label for="score">Score</label>
-            <input type="text" id="score" name="education[0].score" placeholder="Enter score" required>
+            <input type="text" id="score" name="education[0].score" placeholder="Enter score" >
 
             
         </div>
@@ -157,6 +158,7 @@
     document.getElementById("exportinput").value = containerContent;
     
 });
+
 const fileInput = document.getElementById('upload');
 
 fileInput.addEventListener('change', () => {
@@ -168,6 +170,9 @@ fileInput.addEventListener('change', () => {
 	 
 	
 });
+
+
+
 
 </script>
 </body>

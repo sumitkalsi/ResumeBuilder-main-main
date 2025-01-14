@@ -311,3 +311,77 @@ document.addEventListener("DOMContentLoaded", () => {
 	        document.getElementById(`Pscore${index}`).textContent = scoreField.value || "[Score]";
 	    });
 	}
+
+
+
+
+const resumeId = document.getElementById("resumeId").value;
+function postResumeData() {
+    // Gather form data
+    const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        contactNumber: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        links: [],
+        skills: {
+            languages: document.getElementById("languages").value,
+            libraries_frameworks: document.getElementById("lib").value,
+            tools: document.getElementById("tools").value,
+        },
+        workExperience: [],
+        education: [],
+    };
+
+    // Gather links
+    document.querySelectorAll("#linkSection input").forEach((input, index) => {
+        const fieldName = input.getAttribute("name");
+        if (fieldName.startsWith("links[")) {
+            const linkIndex = parseInt(fieldName.match(/\d+/)[0]);
+            if (!formData.links[linkIndex]) formData.links[linkIndex] = {};
+            const key = fieldName.split(".")[1];
+            formData.links[linkIndex][key] = input.value;
+        }
+    });
+
+    // Gather work experience
+    document.querySelectorAll("#workExperienceSection input").forEach((input, index) => {
+        const fieldName = input.getAttribute("name");
+        if (fieldName.startsWith("workExperience[")) {
+            const workIndex = parseInt(fieldName.match(/\d+/)[0]);
+            if (!formData.workExperience[workIndex]) formData.workExperience[workIndex] = {};
+            const key = fieldName.split(".")[1];
+            formData.workExperience[workIndex][key] = input.value;
+        }
+    });
+
+    // Gather education
+    document.querySelectorAll("#educationSection input").forEach((input, index) => {
+        const fieldName = input.getAttribute("name");
+        if (fieldName.startsWith("education[")) {
+            const eduIndex = parseInt(fieldName.match(/\d+/)[0]);
+            if (!formData.education[eduIndex]) formData.education[eduIndex] = {};
+            const key = fieldName.split(".")[1];
+            formData.education[eduIndex][key] = input.value;
+        }
+    });
+
+
+    fetch(`/resume/resumeBuilder/saveResume/${resumeId}`, { // Include the resumeId in the URL if required
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    }).then(() => {
+        // Hardcoded redirect
+        window.location.href = `/resume/resumeBuilder/saveResume/user/dashboard`;
+    })
+       
+}
+
+// Attach to the save button
+document.getElementById('submitformbutton').addEventListener("click", (event) => {
+  event.preventDefault()
+    postResumeData();
+});
