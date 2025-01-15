@@ -65,9 +65,9 @@ public class ResumeController {
 		model.addAttribute("resume", resume);
 		model.addAttribute("template",resume.getTemplate().getTemplatePath());
 		
-		  model.addAttribute("links",resume.getLinks());
-		   model.addAttribute("work",resume.getWorkExperience());
-		   model.addAttribute("education",resume.getEducation());
+//		  model.addAttribute("links",resume.getLinks());
+//		   model.addAttribute("work",resume.getWorkExperience());
+//		   model.addAttribute("education",resume.getEducation());
 		return"resumeBuilder";
 				
 	}
@@ -169,6 +169,7 @@ public class ResumeController {
 	return "redirect:user/dashboard";
 		
 	}
+	
 	
 	
 	

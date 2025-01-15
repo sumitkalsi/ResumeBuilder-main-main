@@ -2,10 +2,12 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
+          scroll-behavior: smooth;
     }
 
     .container {
       display: flex;
+      
       overflow-y: auto;
       width:100%;
       height: 100vh;
@@ -13,7 +15,17 @@
       flex-wrap: wrap;
       padding: 20px;
     }
-
+@media only screen and (max-width: 600px) {
+  
+  .container{
+  display:block;
+  }
+  .form-section, .preview-section{
+  display:block;
+  width:100vw;
+  }
+  
+}
     .form-section, .preview-section {
       flex: 1;
       padding: 20px;
@@ -31,11 +43,14 @@
   padding: 20px; /* Add padding for spacing */
   box-sizing: border-box; /* Include padding in height calculation */
   background-color: #f9f9f9;
-      max-width: 30%;
+      width: 30%;
     }
 
     .preview-section {
-      max-width: 70%;
+ 
+    
+   
+      width: 70%;
       height: 100vh; /* Set the height to 100% of the viewport */
       overflow-y: auto; /* Enable vertical scrolling */
       padding: 20px; /* Add padding for spacing */
@@ -43,7 +58,8 @@
     }
 
     h2 {
-      font-size: 1.5rem;
+    margin:auto;
+    width:200px;
       margin-bottom: 10px;
     }
 
@@ -86,6 +102,7 @@
       line-height: 1.5;
     }
       .export{
+      
         display:flex;
         justify-content:space-between;
      padding: 10px ;
@@ -93,20 +110,6 @@
         }
         
         
-        #uploadDiv{
-        height:35px;
-        display:flex;
-      
-        }
-        #upload{
-        opacity:0;
-        width:115px;
-        position:absolute;
-        z-index:1;
-        }
-        
-         #uploadbtn{
-         position:absolute;
-         z-index:-1;
-       
-        } 
+       #uploadForm{
+       display:flex;
+       }

@@ -10,7 +10,8 @@
         
         <div class="user-section">
         <span >Welcome, </span>
-            <span id="username" class="username " th:object="${user}" th:text="${user.userName}"> </span>
+            <span id="username" class="username "th:if="${user != null}" th:text="${user.userName}"> </span>
+            
           
         </div>
     </nav>
@@ -20,10 +21,12 @@
     
     
       <div class="template"  th:fragment="template1">
+      
       <style>
 
 
          .template {
+         margin:auto;
             font-family: Arial, sans-serif;
             width: 210mm;
             height: 297mm;
@@ -145,6 +148,7 @@
     <style>
 .alternative-template {
   font-family: "Roboto", sans-serif;
+   margin:auto;
   width: 210mm;
   height: 297mm;
   background: #f4f4f4;

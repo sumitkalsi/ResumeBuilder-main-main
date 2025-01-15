@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Set up the inner HTML for the new link section with indexed names for form submission
         linkDiv.innerHTML = ` <div class="section" id="linkSection">
             <label for="link${linkindex  }">Link ${linkindex  }</label>
-            <input type="text" id="link${linkindex  }" name="links[${linkindex-1 }].url" placeholder="Enter link" required>
+            <input type="text" id="link${linkindex  }" name="links[${linkindex-1 }].linkName" placeholder="Enter link" required>
 
             <label for="url${linkindex  }">URL ${linkindex  }</label>
             <input type="text" id="url${linkindex  }" name="links[${linkindex -1}].url" placeholder="Enter URL" required>
